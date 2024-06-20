@@ -2,7 +2,11 @@ version: 1.2
 workflows:
   - subclass: WDL
     primaryDescriptorPath: /vrs-annotator.wdl
+    testParameterFiles:
+      - test/test_inputs.json
     readMePath: /README.md
     authors:
       - name: Quinn Wai Wong
         email: wongq@ohsu.edu
+        affiliation: Oregon Health and Science University
+        role: Research Engineer
