@@ -1,0 +1,5 @@
+{
+    "VRSAnnotator.seqrepo_root_dir": "~/seqrepo/latest",
+    "VRSAnnotator.input_vcf_path": "~/projects/vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vcf",
+    "VRSAnnotator.output_vcf_path": "vrs_annotated.vcf.gz"
+}
