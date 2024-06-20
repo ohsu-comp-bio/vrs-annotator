@@ -1,8 +1,8 @@
 version: 1.2
-  workflows:
-    - subclass: WDL
-      primaryDescriptorPath: /vrs-annotator/vrs-annotator.wdl
-      readMePath: /vrs-annotator/README.md
-      authors:
-        - name: Quinn Wai Wong
-          email: wongq@ohsu.edu
+workflows:
+  - subclass: WDL
+    primaryDescriptorPath: /vrs-annotator.wdl
+    readMePath: /README.md
+    authors:
+      - name: Quinn Wai Wong
+        email: wongq@ohsu.edu
