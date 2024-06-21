@@ -5,7 +5,7 @@ workflow VRSAnnotator {
     input {
         String input_vcf_path
         String output_vcf_path
-        String seqrepo_root_dir
+        String seqrepo_root_dir = "~/seqrepo"
     }
 
     call annotate {
@@ -24,17 +24,12 @@ task annotate {
     }
 
     command <<<
-        python -m venv venv
-        source venv/bin/activate
-        source ~/projects/vrs_anvil_toolkit/venv/bin/activate
+        pip install ga4gh.vrs[extras]==2.0.0a7 biocommons.seqrepo
+
+        mkdir ~{seqrepo_root_dir}
+        seqrepo --root-directory ~{seqrepo_root_dir} pull --update-latest
         
         python3 -m ga4gh.vrs.extras.vcf_annotation --vcf_in ~{input_vcf_path} --vcf_out ~{output_vcf_path} --seqrepo_root_dir ~{seqrepo_root_dir}
-        bcftools index -t ~{output_vcf_path}
-        
-        deactivate
+        # bcftools index -t ~{output_vcf_path}
     >>>
-
-    output {
-        String out = read_string(stdout())
-    }
 }
