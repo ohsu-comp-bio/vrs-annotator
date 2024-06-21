@@ -8,7 +8,7 @@ workflow VRSAnnotator {
         String seqrepo_root_dir = "~/seqrepo"
     }
 
-    call annotate {
+    call annotate { 
         input:
             seqrepo_root_dir = seqrepo_root_dir,
             input_vcf_path = input_vcf_path,
