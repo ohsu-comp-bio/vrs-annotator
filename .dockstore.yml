@@ -1,5 +1,6 @@
 version: 1.2
 workflows:
+ - name: VRSAnnotator
   - subclass: WDL
     primaryDescriptorPath: /vrs-annotator.wdl
     readMePath: /README.md
