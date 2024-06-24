@@ -5,12 +5,10 @@ workflow VRSAnnotator {
     input {
         String input_vcf_path
         String output_vcf_path
-        String seqrepo_root_dir = "~/seqrepo"
     }
 
     call annotate { 
         input:
-            seqrepo_root_dir = seqrepo_root_dir,
             input_vcf_path = input_vcf_path,
             output_vcf_path = output_vcf_path
     }
@@ -20,16 +18,17 @@ task annotate {
     input {
         String input_vcf_path
         String output_vcf_path
-        String seqrepo_root_dir
     }
 
     command <<<
-        pip install ga4gh.vrs[extras]==2.0.0a7 biocommons.seqrepo
-
-        mkdir ~{seqrepo_root_dir}
-        seqrepo --root-directory ~{seqrepo_root_dir} pull --update-latest
-        
-        python3 -m ga4gh.vrs.extras.vcf_annotation --vcf_in ~{input_vcf_path} --vcf_out ~{output_vcf_path} --seqrepo_root_dir ~{seqrepo_root_dir}
-        # bcftools index -t ~{output_vcf_path}
+        SEQREPO_DIR=~/seqrepo
+        mkdir $SEQREPO_DIR
+        seqrepo --root-directory $SEQREPO_DIR pull --update-latest
+        python -m ga4gh.vrs.extras.vcf_annotation --vcf_in ~{input_vcf_path} --vcf_out ~{output_vcf_path} --seqrepo_root_dir $SEQREPO_DIR/latest
+        bcftools index -t ~{output_vcf_path}
     >>>
+
+    runtime {
+        docker: 'quay.io/ohsu-comp-bio/vrs-annotator:base'
+    }
 }
