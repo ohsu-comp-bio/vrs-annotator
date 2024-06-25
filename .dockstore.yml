@@ -1,11 +1,11 @@
 version: 1.2
 workflows:
- - name: VRSAnnotator
-  - subclass: WDL
-    primaryDescriptorPath: /vrs-annotator.wdl
-    readMePath: /README.md
-    authors:
-      - name: Quinn Wai Wong
-        email: wongq@ohsu.edu
-        affiliation: Oregon Health and Science University
-        role: Research Engineer
+- name: VRSAnnotator
+  subclass: WDL
+  primaryDescriptorPath: /vrs-annotator.wdl
+  readMePath: /README.md
+  authors:
+    - name: Quinn Wai Wong
+      email: wongq@ohsu.edu
+      affiliation: Oregon Health and Science University
+      role: Research Engineer
