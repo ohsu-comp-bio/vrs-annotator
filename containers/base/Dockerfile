@@ -14,7 +14,4 @@ RUN pip install ga4gh.vrs[extras]==2.0.0a7 biocommons.seqrepo
 
 RUN sudo apt-get update && sudo apt-get install -y rsync
 
-# Set the working directory
-WORKDIR ~
-
 CMD ["/bin/bash"]
