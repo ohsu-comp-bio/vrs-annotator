@@ -1,4 +1,5 @@
 {
     "VRSAnnotator.input_vcf_path": "/tmp/1kGP.chr1.1000.slim.vcf",
-    "VRSAnnotator.output_vcf_name": "vrs_annotated.vcf.gz"
+    "VRSAnnotator.output_vcf_name": "vrs_annotated.vcf.gz",
+    "VRSAnnotator.preload_seqrepo": true
 }
