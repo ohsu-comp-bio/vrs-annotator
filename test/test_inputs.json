@@ -1,5 +1,5 @@
 {
-    "VRSAnnotator.input_vcf_path": "/tmp/1kGP.chr1.1000.slim.vcf",
+    "VRSAnnotator.input_vcf_path": "gs://fc-e1b9889d-cca4-4edb-95af-cdfc120f15eb/1kGP.chr1.1000.slim.vcf.gz",
     "VRSAnnotator.output_vcf_name": "vrs_annotated.vcf.gz",
-    "VRSAnnotator.preload_seqrepo": true
+    "VRSAnnotator.seqrepo_tarball": "gs://fc-e1b9889d-cca4-4edb-95af-cdfc120f15eb/seqrepo.tar.gz"
 }
