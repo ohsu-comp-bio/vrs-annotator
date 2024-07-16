@@ -5,14 +5,18 @@ workflow VRSAnnotator {
     input {
         File input_vcf_path
         String output_vcf_name 
-        File seqrepo_tarball
+        File seqrepo_tarball = "gs://fc-e1b9889d-cca4-4edb-95af-cdfc120f15eb/seqrepo.tar.gz"
+        Boolean compute_for_ref = true
+        String genome_assembly = "GRCh38"
     }
 
     call annotate {
         input:
             input_vcf_path = input_vcf_path,
             output_vcf_name = output_vcf_name,
-            seqrepo_tarball = seqrepo_tarball
+            seqrepo_tarball = seqrepo_tarball,
+            compute_for_ref = compute_for_ref,
+            genome_assembly = genome_assembly
     }
 }
 
@@ -21,6 +25,16 @@ task annotate {
         File input_vcf_path
         String output_vcf_name
         File seqrepo_tarball
+        Boolean compute_for_ref
+        String genome_assembly
+    }
+
+    Int disk_size = ceil(size(input_vcf_path, "GB")) + 40
+
+    runtime {
+        docker: "quay.io/ohsu-comp-bio/vrs-annotator:base"
+        disks: "local-disk" + disk_size + "SSD"
+        memory: "8G"
     }
 
     command <<<
@@ -44,15 +58,24 @@ task annotate {
         seqrepo --root-directory $SEQREPO_DIR update-latest
 
         # annotate and index vcf
-        python -m ga4gh.vrs.extras.vcf_annotation --vcf_in ~{input_vcf_path} --vcf_out ~{output_vcf_name} --seqrepo_root_dir $SEQREPO_DIR/latest
+        if ~{compute_for_ref}; then
+            python -m ga4gh.vrs.extras.vcf_annotation \
+                --vcf_in ~{input_vcf_path} \
+                --vcf_out ~{output_vcf_name} \
+                --seqrepo_root_dir $SEQREPO_DIR/latest \
+                --assembly ~{genome_assembly}
+        else
+            echo "annotating only alt without ref"
+            python -m ga4gh.vrs.extras.vcf_annotation \
+                --vcf_in ~{input_vcf_path} \
+                --vcf_out ~{output_vcf_name} \
+                --seqrepo_root_dir $SEQREPO_DIR/latest \
+                --skip_ref \
+                --assembly ~{genome_assembly}
+        fi
+        
         bcftools index -t ~{output_vcf_name}
     >>>
-
-    runtime {
-        docker: "quay.io/ohsu-comp-bio/vrs-annotator:base"
-        disks: "local-disk 50 SSD"
-        bootDiskSizeGb: 20
-    }
 
     output {
         File annotated_vcf = "~{output_vcf_name}"
