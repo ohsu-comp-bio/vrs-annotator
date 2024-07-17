@@ -29,17 +29,17 @@ task annotate {
         String genome_assembly
     }
 
-    Int disk_size = ceil(size(input_vcf_path, "GB")) + 30
+    Int disk_size = ceil(size(input_vcf_path, "GB")) + ceil(size(seqrepo_tarball, "GB")) + 10
 
     runtime {
         docker: "quay.io/ohsu-comp-bio/vrs-annotator:base"
+        disks: "local-disk " + disk_size + " SSD"
         bootDiskSizeGb: disk_size
         memory: "8G"
     }
 
     command <<<
         # if compressed input VCF, create index
-        echo ~{disk_size}
         if [[ ~{input_vcf_path} == *.gz ]]; then
             echo "creating index for input VCF"
             bcftools index -t ~{input_vcf_path}
