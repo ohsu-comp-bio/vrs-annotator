@@ -5,7 +5,7 @@ workflow VRSAnnotator {
     input {
         File input_vcf_path
         String output_vcf_name 
-        File seqrepo_tarball = "gs://fc-e1b9889d-cca4-4edb-95af-cdfc120f15eb/seqrepo.tar.gz"
+        File seqrepo_tarball
         Boolean compute_for_ref = true
         String genome_assembly = "GRCh38"
     }
@@ -29,16 +29,17 @@ task annotate {
         String genome_assembly
     }
 
-    Int disk_size = ceil(size(input_vcf_path, "GB")) + 40
+    Int disk_size = ceil(size(input_vcf_path, "GB")) + 30
 
     runtime {
         docker: "quay.io/ohsu-comp-bio/vrs-annotator:base"
-        disks: "local-disk" + disk_size + "SSD"
+        disks: "local-disk " + disk_size + " SSD"
         memory: "8G"
     }
 
     command <<<
         # if compressed input VCF, create index
+        echo ~{disk_size}
         if [[ ~{input_vcf_path} == *.gz ]]; then
             echo "creating index for input VCF"
             bcftools index -t ~{input_vcf_path}
