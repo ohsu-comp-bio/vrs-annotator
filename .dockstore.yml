@@ -11,3 +11,6 @@ workflows:
       email: wongq@ohsu.edu
       affiliation: Oregon Health and Science University
       role: Research Engineer
+notebooks:
+  - path: /example-analysis.ipynb
+    topic: Example analysis notebook for a VRS annotated VCF
