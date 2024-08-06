@@ -13,6 +13,7 @@ workflows:
       role: Research Engineer
 notebooks:
   - path: /example-analysis.ipynb
+    name: VRSAnnotatorExampleAnalysis
     format: JUPYTER
     language: PYTHON
     topic: Example analysis notebook for a VRS annotated VCF
