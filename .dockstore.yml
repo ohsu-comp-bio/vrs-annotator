@@ -13,4 +13,7 @@ workflows:
       role: Research Engineer
 notebooks:
   - path: /example-analysis.ipynb
+    format: JUPYTER
+    language: PYTHON
     topic: Example analysis notebook for a VRS annotated VCF
+    publish: true
