@@ -3,7 +3,7 @@
 ### Description
 GA4GH VRS identifiers provide a standardized way to represent genomic variations, making it easier to exchange, harmonize, and integrate genomic information. 
 
-This workflow provides a way for you to annotate a VCF with GA4GH Variation Representation Specification (VRS) Allele IDs! Varying configuration such as genome assemvly, a VRS ID is created for both the reference and alternate allele for each variant.
+This workflow provides a way for you to annotate a VCF with GA4GH Variation Representation Specification (VRS) Allele IDs! Varying configuration such as genome assembly, a VRS ID is created for both the reference and alternate allele for each variant.
 
 This can be easily run with the [VRS AnVIL](https://app.terra.bio/#workspaces/terra-test-bwalsh/vrs_anvil_toolkit) workspace, which provides tools to enable the use of GA4GH VRS IDs on the Terra platform.
 
