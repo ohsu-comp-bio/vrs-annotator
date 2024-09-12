@@ -4,7 +4,7 @@ version 1.0
 workflow VRSAnnotator {
     input {
         File input_vcf_path
-        String output_vcf_name 
+        String output_vcf_name
         File seqrepo_tarball
         Boolean compute_for_ref = true
         String genome_assembly = "GRCh38"
@@ -64,6 +64,7 @@ task annotate {
                 --vcf_in ~{input_vcf_path} \
                 --vcf_out ~{output_vcf_name} \
                 --seqrepo_root_dir $SEQREPO_DIR/latest \
+                --vrs_attributes \
                 --assembly ~{genome_assembly}
         else
             echo "annotating only alt without ref"
@@ -72,9 +73,10 @@ task annotate {
                 --vcf_out ~{output_vcf_name} \
                 --seqrepo_root_dir $SEQREPO_DIR/latest \
                 --skip_ref \
+                --vrs_attributes \
                 --assembly ~{genome_assembly}
         fi
-        
+
         bcftools index -t ~{output_vcf_name}
     >>>
 
