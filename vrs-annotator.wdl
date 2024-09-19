@@ -17,6 +17,7 @@ workflow VRSAnnotator {
             output_vcf_name = output_vcf_name,
             seqrepo_tarball = seqrepo_tarball,
             compute_for_ref = compute_for_ref,
+            compute_vrs_attributes = compute_vrs_attributes,
             genome_assembly = genome_assembly
     }
 }
@@ -60,21 +61,23 @@ task annotate {
         sudo chown "$(whoami)" $SEQREPO_DIR
         seqrepo --root-directory $SEQREPO_DIR update-latest
 
-        # setup runtime flags
-        if not ~{compute_for_ref}:
+        # add runtime flags if specified
+        if ~{compute_for_ref}; then
             REF_FLAG="--skip_ref"
+        fi
         
-        if ~{compute_vrs_attributes}:
+        if ~{compute_vrs_attributes}; then
             VRS_ATTRIBUTES_FLAG="--vrs_attributes"
+        fi
 
         # annotate and index vcf
         python -m ga4gh.vrs.extras.vcf_annotation \
             --vcf_in ~{input_vcf_path} \
             --vcf_out ~{output_vcf_name} \
             --seqrepo_root_dir $SEQREPO_DIR/latest \
-            --assembly ~{genome_assembly}
-            ~{REF_FLAG}
-            ~{VRS_ATTRIBUTES_FLAG}
+            --assembly ~{genome_assembly} \
+            $REF_FLAG \
+            $VRS_ATTRIBUTES_FLAG
         
         bcftools index -t ~{output_vcf_name}
     >>>
