@@ -63,9 +63,9 @@ task annotate {
 
         # add runtime flags
         if ~{compute_for_ref}; then
-            REF_FLAG="--skip_ref" && ~{compute_for_ref}
-        else
             REF_FLAG=""
+        else
+            REF_FLAG="--skip_ref"
         fi
         
         if ~{compute_vrs_attributes}; then
