@@ -7,6 +7,7 @@ workflow VRSAnnotator {
         String output_vcf_name 
         File seqrepo_tarball
         Boolean compute_for_ref = true
+        Boolean compute_vrs_attributes = true
         String genome_assembly = "GRCh38"
     }
 
@@ -26,6 +27,7 @@ task annotate {
         String output_vcf_name
         File seqrepo_tarball
         Boolean compute_for_ref
+        Boolean compute_vrs_attributes
         String genome_assembly
     }
 
@@ -58,22 +60,21 @@ task annotate {
         sudo chown "$(whoami)" $SEQREPO_DIR
         seqrepo --root-directory $SEQREPO_DIR update-latest
 
+        # setup runtime flags
+        if not ~{compute_for_ref}:
+            REF_FLAG="--skip_ref"
+        
+        if ~{compute_vrs_attributes}:
+            VRS_ATTRIBUTES_FLAG="--vrs_attributes"
+
         # annotate and index vcf
-        if ~{compute_for_ref}; then
-            python -m ga4gh.vrs.extras.vcf_annotation \
-                --vcf_in ~{input_vcf_path} \
-                --vcf_out ~{output_vcf_name} \
-                --seqrepo_root_dir $SEQREPO_DIR/latest \
-                --assembly ~{genome_assembly}
-        else
-            echo "annotating only alt without ref"
-            python -m ga4gh.vrs.extras.vcf_annotation \
-                --vcf_in ~{input_vcf_path} \
-                --vcf_out ~{output_vcf_name} \
-                --seqrepo_root_dir $SEQREPO_DIR/latest \
-                --skip_ref \
-                --assembly ~{genome_assembly}
-        fi
+        python -m ga4gh.vrs.extras.vcf_annotation \
+            --vcf_in ~{input_vcf_path} \
+            --vcf_out ~{output_vcf_name} \
+            --seqrepo_root_dir $SEQREPO_DIR/latest \
+            --assembly ~{genome_assembly}
+            ~{REF_FLAG}
+            ~{VRS_ATTRIBUTES_FLAG}
         
         bcftools index -t ~{output_vcf_name}
     >>>
