@@ -61,13 +61,17 @@ task annotate {
         sudo chown "$(whoami)" $SEQREPO_DIR
         seqrepo --root-directory $SEQREPO_DIR update-latest
 
-        # add runtime flags if specified
+        # add runtime flags
         if ~{compute_for_ref}; then
-            REF_FLAG="--skip_ref"
+            REF_FLAG="--skip_ref" && ~{compute_for_ref}
+        else
+            REF_FLAG=""
         fi
         
         if ~{compute_vrs_attributes}; then
             VRS_ATTRIBUTES_FLAG="--vrs_attributes"
+        else
+            VRS_ATTRIBUTES_FLAG=""
         fi
 
         # annotate and index vcf
