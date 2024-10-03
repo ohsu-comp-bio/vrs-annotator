@@ -5,7 +5,7 @@ GA4GH VRS identifiers provide a standardized way to represent genomic variations
 
 This WDL workflow wraps the functionality of vrs-python's [vcf_annotator](https://github.com/ga4gh/vrs-python/blob/main/docs/extras/vcf_annotator.md), allowing you to annotate Variant Call Format (VCF) files with GA4GH Variation Representation Specification (VRS) Allele IDs on Terra! This makes integration of genomic variant data with downstream evidence data like [MetaKB](https://search.cancervariants.org/) much easier.
 
-To get started, navigate to the [VRS AnVIL](https://app.terra.bio/#workspaces/terra-test-bwalsh/vrs_anvil_toolkit) workspace to run it on Terra! For more details, see the docs on [setting up a Terra workflow](https://support.terra.bio/hc/en-us/articles/360036379771-Overview-Running-workflows-in-Terra) and the Dockstore repository for the [VRS Annotator workflow](https://dockstore.org/my-workflows/github.com/ohsu-comp-bio/vrs-annotator/VRSAnnotator).
+To get started, navigate to the [VRS AnVIL](https://app.terra.bio/#workspaces/terra-test-bwalsh/vrs_anvil) workspace to run it on Terra! For more details, see the docs on [setting up a Terra workflow](https://support.terra.bio/hc/en-us/articles/360036379771-Overview-Running-workflows-in-Terra) and the Dockstore repository for the [VRS Annotator workflow](https://dockstore.org/my-workflows/github.com/ohsu-comp-bio/vrs-annotator/VRSAnnotator).
 
 ### Inputs
 - `input_vcf_path` (File): Google resource path of VCF file (gs://)
