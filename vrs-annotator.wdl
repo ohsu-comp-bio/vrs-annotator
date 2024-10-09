@@ -4,7 +4,7 @@ version 1.0
 workflow VRSAnnotator {
     input {
         File input_vcf_path
-        String output_vcf_name 
+        String output_vcf_name
         File seqrepo_tarball
         Boolean compute_for_ref = true
         Boolean compute_vrs_attributes = true
@@ -67,7 +67,7 @@ task annotate {
         else
             REF_FLAG="--skip_ref"
         fi
-        
+
         if ~{compute_vrs_attributes}; then
             VRS_ATTRIBUTES_FLAG="--vrs_attributes"
         else
@@ -75,19 +75,19 @@ task annotate {
         fi
 
         # annotate and index vcf
-        python -m ga4gh.vrs.extras.vcf_annotation \
-            --vcf_in ~{input_vcf_path} \
+        vrs-annotate vcf ~{input_vcf_path} \
             --vcf_out ~{output_vcf_name} \
             --seqrepo_root_dir $SEQREPO_DIR/latest \
             --assembly ~{genome_assembly} \
             $REF_FLAG \
             $VRS_ATTRIBUTES_FLAG
-        
+
         bcftools index -t ~{output_vcf_name}
     >>>
 
     output {
         File annotated_vcf = "~{output_vcf_name}"
         File annotated_vcf_index = "~{output_vcf_name}.tbi"
+        File vrs_annotation_log = "vrs-annotate.log"
     }
 }
