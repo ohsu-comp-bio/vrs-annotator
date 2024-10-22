@@ -22,8 +22,8 @@ workflow VRSAnnotator {
     }
 
     output {
-        File annotated_vcf = annotate.output_vcf
-        File annotated_vcf_index = annotate.output_vcf_index
+        File output_vcf = annotate.annotated_vcf
+        File output_vcf_index = annotate.annotated_vcf_index
     }
 }
 
