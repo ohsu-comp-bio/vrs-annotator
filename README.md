@@ -14,3 +14,11 @@ To get started, navigate to the [VRS AnVIL](https://app.terra.bio/#workspaces/te
 - `compute_for_ref` (boolean, optional): Whether to compute both the ref and alt allele or compute only the alt allele for each variant. Defaults to true, computing both.
 - `vrs_attributes` (boolean, optional): Whether to compute both the ref and alt allele or compute only the alt allele for each variant. Defaults to true, computing both.
 - `genome_assembly` (String, optional): genome assembly or genome build used by the VCF. Defaults to "GRCh38", but "GRCh37" is also supported.
+
+
+## Outputs
+To write output file paths to directly to a Terra data table, specify the outputs, specifically:
+- `output_vcf` (File): column in a Terra data table to write the output VCF to
+- `output_vcf_index` (File): column in a Terra data table to write the tabix output VCF index to
+
+For more info on how to write workflow ouputs to the data table, see the [Terra docs](https://support.terra.bio/hc/en-us/articles/4500420806299-Writing-workflow-outputs-to-the-data-table)

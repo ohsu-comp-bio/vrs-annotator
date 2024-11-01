@@ -20,6 +20,11 @@ workflow VRSAnnotator {
             compute_vrs_attributes = compute_vrs_attributes,
             genome_assembly = genome_assembly
     }
+
+    output {
+        File output_vcf = annotate.annotated_vcf
+        File output_vcf_index = annotate.annotated_vcf_index
+    }
 }
 
 task annotate {
