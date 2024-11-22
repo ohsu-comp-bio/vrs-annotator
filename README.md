@@ -1,6 +1,24 @@
 # [DEPRECATED] VRSAnnotator
 
-## We have moved! See the new repo on [gks-anvil](https://github.com/gks-anvil/vrs-annotator). This will not longer be maintained, but will be kept up for existing Dockstore Workflow users to transition over.
+## We have moved! This will not longer be maintained, but will be kept up for existing Dockstore Workflow users to transition over. See the new repo on [gks-anvil](https://github.com/gks-anvil/vrs-annotator).
+
+## Steps for Current Users to Transition 
+
+If you have already imported this workflow into a Terra Workspace, here are some quick steps to update your workflow...
+
+1. Navigate to the Workflows tab of the Workspace
+2. Save your preferred inputs
+   1. Select the INPUTS tab and click "Download json"
+   2. Select the OUTPUTS tab and click "Download json"
+3. Import the new Dockstore repo for [VRSAnnotator](https://dockstore.org/workflows/github.com/gks-anvil/vrs-annotator/VRSAnnotator:main?tab=info)
+   1. Visit [Dockstore](https://dockstore.org/workflows/github.com/gks-anvil/vrs-annotator/VRSAnnotator:main?tab=info)
+   2. On the right-hand side, click the Terra button in the "Launch with" section
+   3. Choose the Desination Workspace using the dropdown
+   4. Click Overwrite
+4. Update your preferred inputs and outputs using "upload json"
+5. Enjoy workflowing 🥳
+
+## [DEPRECATED: SEE ABOVE]
 
 ### Description
 GA4GH VRS identifiers provide a standardized way to represent genomic variations, making it easier to exchange, harmonize, and integrate genomic information. 
