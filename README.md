@@ -1,4 +1,6 @@
-# VRSAnnotator
+# [DEPRECATED] VRSAnnotator
+
+## We have moved! See the new repo on [gks-anvil](https://github.com/gks-anvil/vrs-annotator). This will not longer be maintained, but will be kept up for existing Dockstore Workflow users to transition over.
 
 ### Description
 GA4GH VRS identifiers provide a standardized way to represent genomic variations, making it easier to exchange, harmonize, and integrate genomic information. 
